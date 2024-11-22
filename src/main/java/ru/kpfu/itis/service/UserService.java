@@ -1,17 +1,22 @@
 package ru.kpfu.itis.service;
 
-import ru.kpfu.itis.dto.UserDto;
-import ru.kpfu.itis.dto.UserRegistrationDto;
+import ru.kpfu.itis.entity.User;
 
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-public interface UserService {
+public class UserService {
 
-    List<UserDto> getAll();
+    public User getUser(HttpServletRequest req, HttpServletResponse res) {
+        return (User) req.getSession().getAttribute("user");
+    }
 
-    UserDto get(Integer id);
+    public void authUser(User user, HttpServletRequest req, HttpServletResponse resp) throws Exception {
+        req.getSession().setAttribute("user", user);
+    }
 
-    UserDto getByLogin(String login);
+    public void deleteUser(User user, HttpServletRequest req, HttpServletResponse resp) throws Exception {
+        req.getSession().removeAttribute("user");
+    }
 
-    void register(UserRegistrationDto user);
 }

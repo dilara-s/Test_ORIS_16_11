@@ -1,53 +1,30 @@
 package ru.kpfu.itis.entity;
 
 public class User {
-
-    private Integer id;
-    private String name;
-    private String lastname;
+    private int user_id;
     private String login;
     private String password;
+    private String email;
 
-    public User() {
-    }
-
-    public User(Integer id, String name, String lastname, String login, String password) {
-        this.id = id;
-        this.name = name;
-        this.lastname = lastname;
+    public User(int user_id, String login, String password, String email) {
+        this.user_id = user_id;
         this.login = login;
         this.password = password;
+        this.email = email;
     }
 
-    public User(String name, String lastname, String login, String password) {
-        this.name = name;
-        this.lastname = lastname;
+    public User(String login, String password, String email) {
         this.login = login;
         this.password = password;
+        this.email = email;
     }
 
-    public Integer getId() {
-        return id;
+    public int getUser_id() {
+        return user_id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
     public String getLogin() {
@@ -64,5 +41,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

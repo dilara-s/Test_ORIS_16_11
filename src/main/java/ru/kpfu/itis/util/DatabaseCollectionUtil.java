@@ -13,28 +13,16 @@ public class DatabaseCollectionUtil {
             try {
                 Class.forName("org.postgresql.Driver");
                 connection = DriverManager.getConnection(
-                        "jdbc:postgresql://localhost:5432/yourdb",
-                        "yourusername",
-                        "yourpassword"
+                        "jdbc:postgresql://localhost:5432/login_attempts",
+                        "user",
+                        "password"
                 );
             } catch (SQLException e) {
-                throw new RuntimeException("Failed to connect to the database", e);
+                throw new RuntimeException("Failed to establish database connection", e);
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException("PostgreSQL JDBC Driver not found", e);
             }
         }
         return connection;
-    }
-
-    public static void closeConnection() {
-        if (connection != null) {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                throw new RuntimeException("Failed to close the database connection", e);
-            } finally {
-                connection = null;
-            }
-        }
     }
 }
