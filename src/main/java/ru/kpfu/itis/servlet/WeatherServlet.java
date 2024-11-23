@@ -39,22 +39,27 @@ public class WeatherServlet extends HttpServlet {
         headers.put("Accept", "application/json");
 
         try {
-
             String weatherData = httpClient.get(API_URL, headers, params);
 
             JSONObject json = new JSONObject(weatherData);
             String description = json.getJSONArray("weather").getJSONObject(0).getString("description");
             double temperature = json.getJSONObject("main").getDouble("temp");
 
+            JSONObject responseJson = new JSONObject();
+            responseJson.put("cityName", cityName);
+            responseJson.put("description", description);
+            responseJson.put("temperature", temperature);
 
-            req.setAttribute("cityName", cityName);
-            req.setAttribute("description", description);
-            req.setAttribute("temperature", temperature);
+            resp.setContentType("application/json");
+            resp.setCharacterEncoding("UTF-8");
+            resp.getWriter().write(responseJson.toString());
 
         } catch (Exception e) {
-            req.setAttribute("weather", "Ошибка при получении данных о погоде. Пожалуйста, попробуйте еще раз.");
+            JSONObject errorJson = new JSONObject();
+            errorJson.put("error", "Ошибка при получении данных о погоде. Пожалуйста, попробуйте еще раз.");
+            resp.setContentType("application/json");
+            resp.setCharacterEncoding("UTF-8");
+            resp.getWriter().write(errorJson.toString());
         }
-
-        getServletConfig().getServletContext().getRequestDispatcher("weather.jsp").forward(req, resp);
     }
 }
